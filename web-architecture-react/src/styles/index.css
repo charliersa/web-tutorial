@@ -1286,15 +1286,287 @@ li { margin-bottom: 6px; }
   border: 0;
 }
 
-/* responsive */
-@media (max-width: 900px) {
-  .app { grid-template-columns: 1fr; }
-  .sidebar { position: relative; height: auto; }
-  .hero-grid { grid-template-columns: 1fr; }
-  .content { padding: 24px 20px 60px; }
-  .topbar { padding: 12px 20px; }
+/* ============================================================
+   響應式設計 RWD
+   桌機  > 1024px：正常雙欄版面
+   平板  769px ~ 1024px：側邊欄縮窄
+   手機  ≤ 768px：側邊欄變抽屜
+   ============================================================ */
+
+/* ── 漢堡選單按鈕（桌機隱藏） ── */
+.menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+.menu-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-1);
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.menu-btn:hover span { background: var(--text-0); }
+
+/* topbar 左側包含漢堡 + 麵包屑 */
+.topbar-left {
+  display: flex;
+  align-items: center;
 }
 
+/* MDN 按鈕文字在超窄螢幕藏起來 */
+.btn-label { display: inline; }
 
+/* ── 側邊欄遮罩 ── */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  backdrop-filter: blur(2px);
+}
+
+/* 手機版關閉按鈕（桌機隱藏） */
+.sidebar-close {
+  display: none;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: var(--text-2);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  line-height: 1;
+}
+.sidebar-close:hover { background: var(--bg-2); color: var(--text-0); }
+
+/* ── 平板版（769px ~ 1024px） ── */
+@media (max-width: 1024px) {
+  .app {
+    grid-template-columns: 220px 1fr;
+  }
+  .content {
+    padding: 32px 32px 80px;
+    max-width: 100%;
+  }
+  .topbar {
+    padding: 12px 24px;
+  }
+  .hero-grid {
+    gap: 20px;
+  }
+  .page-title {
+    font-size: 30px;
+  }
+  .arch-row {
+    grid-template-columns: 110px 1fr;
+  }
+}
+
+/* ── 手機版（≤ 768px） ── */
+@media (max-width: 768px) {
+
+  /* 版面改單欄 */
+  .app {
+    grid-template-columns: 1fr;
+    position: relative;
+  }
+
+  /* 主要內容佔滿 */
+  .main {
+    width: 100%;
+  }
+
+  /* ─ 側邊欄：變左側抽屜 ─ */
+  .sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: min(280px, 85vw);
+    height: 100vh;
+    z-index: 100;
+    transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: none;
+    border-right: 1px solid var(--border);
+    padding-top: 20px;
+  }
+  .sidebar--open {
+    left: 0;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35);
+  }
+  .sidebar-overlay {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s;
+  }
+  .sidebar-is-open .sidebar-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .sidebar-close {
+    display: block;
+  }
+
+  /* ─ 漢堡按鈕顯示 ─ */
+  .menu-btn {
+    display: flex;
+  }
+
+  /* ─ Topbar ─ */
+  .topbar {
+    padding: 10px 16px;
+  }
+  .topbar-actions {
+    gap: 6px;
+  }
+  .btn-mdn .btn-label {
+    display: none; /* 手機版只顯示 📖 圖示 */
+  }
+  .btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* ─ 內容區 ─ */
+  .content {
+    padding: 20px 16px 80px;
+    max-width: 100%;
+  }
+
+  /* ─ 標題縮小 ─ */
+  .page-title {
+    font-size: 24px;
+  }
+  .page-subtitle {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+  h2.section-title {
+    font-size: 18px;
+    margin: 28px 0 12px;
+  }
+
+  /* ─ 首頁 Hero ─ */
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hero-terminal {
+    font-size: 12px;
+  }
+  .term-body {
+    padding: 12px 14px;
+  }
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .stat {
+    padding: 12px;
+  }
+  .stat-num {
+    font-size: 18px;
+  }
+
+  /* ─ 架構圖 ─ */
+  .arch {
+    padding: 16px;
+  }
+  .arch-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 12px 0;
+  }
+  .arch-label {
+    font-size: 12px;
+  }
+  .arch-items {
+    gap: 6px;
+  }
+  .arch-pill {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+
+  /* ─ 卡片格 ─ */
+  .card-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .card {
+    padding: 14px;
+  }
+
+  /* ─ Code block ─ */
+  .codeblock pre {
+    font-size: 12px;
+    padding: 12px 14px;
+  }
+
+  /* ─ Tabs ─ */
+  .tabs-bar {
+    gap: 0;
+  }
+  .tab {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  /* ─ Chapter index chips ─ */
+  .ch-index {
+    margin: 16px -4px 4px;
+    padding: 10px 10px;
+    top: 49px; /* 手機版 topbar 較矮 */
+  }
+  .ch-chip {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* ─ Chapter section ─ */
+  .ch-head {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* ─ Paper theme subtitle border fix ─ */
+  [data-theme="paper"] .page-subtitle {
+    margin-left: -12px;
+  }
+
+  /* ─ Table overflow ─ */
+  .tbl-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ── 超小螢幕（≤ 400px） ── */
+@media (max-width: 400px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+  .stats {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .topbar-actions .btn-mdn {
+    display: none; /* 超小螢幕把 MDN 按鈕藏起來 */
+  }
+  .hero-terminal {
+    display: none; /* 超小螢幕省略終端機裝飾 */
+  }
+}
 
 
