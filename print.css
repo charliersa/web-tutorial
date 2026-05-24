@@ -1,0 +1,268 @@
+/* ============================================================
+   Print stylesheet — overrides app shell for a paged document.
+   ============================================================ */
+
+html, body {
+  background: #fbf8f1 !important;
+  color: #2a2620;
+}
+
+/* Hide UI chrome that doesn't belong in a printed book. */
+.sidebar, .topbar, .tweaks-panel, .tweaks-toggle,
+button.btn, .codeblock-copy,
+.ch-index /* sticky chapter chips */ {
+  display: none !important;
+}
+
+/* Disable hover/transform animations so nothing animates on screen pre-print */
+* {
+  transition: none !important;
+  animation: none !important;
+}
+
+/* Override scroll-snap and sticky behaviour */
+.app, .main {
+  display: block !important;
+  min-height: 0 !important;
+}
+
+.content {
+  max-width: none !important;
+  padding: 0 !important;
+}
+
+/* ---------- Print document layout ---------- */
+.print-doc {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px 48px 64px;
+}
+
+/* Cover */
+.print-cover {
+  min-height: calc(100vh - 64px);
+  padding: 80px 0 40px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: none;
+  break-after: page;
+  page-break-after: always;
+}
+
+.cover-eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: #b8794a;
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+}
+
+.cover-title {
+  font-family: "Noto Serif TC", "Cormorant Garamond", Georgia, serif;
+  font-size: 72px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #2a2620;
+  margin: 0 0 12px;
+  line-height: 1.05;
+}
+
+.cover-sub {
+  font-family: "Noto Serif TC", Georgia, serif;
+  font-size: 20px;
+  font-style: italic;
+  color: #5a5246;
+  margin: 0 0 56px;
+  border-left: 2px solid #b8794a;
+  padding-left: 16px;
+}
+
+.cover-toc {
+  margin-top: 24px;
+  border-top: 1px solid #d8cfba;
+  padding-top: 32px;
+}
+
+.cover-toc-title {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  color: #8a8170;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.cover-toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cover-toc li {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px dashed #d8cfba;
+}
+
+.toc-num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  color: #b8794a;
+}
+
+.toc-title {
+  font-family: "Noto Serif TC", serif;
+  font-size: 16px;
+  color: #2a2620;
+}
+
+.toc-group {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: #8a8170;
+  letter-spacing: 0.08em;
+}
+
+.cover-foot {
+  margin-top: auto;
+  padding-top: 32px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: #8a8170;
+  letter-spacing: 0.16em;
+}
+
+/* Each page block */
+.print-page {
+  break-before: page;
+  page-break-before: always;
+  padding-top: 32px;
+}
+.print-page:first-of-type {
+  break-before: auto;
+  page-break-before: auto;
+}
+
+.print-page-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid #d8cfba;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  color: #8a8170;
+  letter-spacing: 0.06em;
+}
+
+.ph-num {
+  color: #b8794a;
+  font-weight: 600;
+}
+.ph-sep { color: #d8cfba; }
+.ph-group { color: #8a8170; }
+.ph-title {
+  color: #2a2620;
+  font-family: "Noto Serif TC", serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Force-open all collapsibles for print */
+.collapse .collapse-body {
+  display: block !important;
+}
+
+/* Show all tab panes so nothing is hidden behind tab UI */
+.tab-content, .tab-pane {
+  display: block !important;
+}
+
+/* In Tabs, the buttons hide info — convert to plain labels */
+.tabs-bar {
+  flex-wrap: wrap;
+  border-bottom: 1px solid #d8cfba !important;
+}
+.tab {
+  background: transparent !important;
+  color: #5a5246 !important;
+  cursor: default !important;
+}
+
+/* Prevent splitting key blocks across pages */
+.codeblock,
+.callout,
+.card,
+.arch,
+.hero-terminal,
+.img-wrap,
+.ch-section,
+.tbl-wrap {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+h2.section-title,
+h3.sub,
+.page-title,
+.ch-title,
+.ch-head {
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+/* Make hero grid stack so it doesn't overflow narrow print width */
+.hero-grid {
+  grid-template-columns: 1fr !important;
+  gap: 24px !important;
+}
+
+/* Code blocks: ensure they wrap rather than scroll horizontally */
+.codeblock pre {
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  overflow-x: visible !important;
+}
+
+/* ---------- @page rules ---------- */
+@page {
+  size: A4;
+  margin: 14mm 12mm;
+}
+
+@media print {
+  html, body {
+    background: #fbf8f1 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print-doc {
+    padding: 0;
+    max-width: none;
+  }
+
+  /* Make sure each major section starts on a fresh page */
+  .print-page {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  /* Hide any scroll shadow / blur effects that don't print right */
+  * {
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* The cover gets a clean full page */
+  .print-cover {
+    min-height: 0;
+    padding-top: 40mm;
+    padding-bottom: 20mm;
+  }
+}

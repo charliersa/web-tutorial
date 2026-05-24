@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>程式網頁架構 · web.architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+
+<meta name="ext-resource-dependency" content="assets/obsidian-install-guide.png" data-resource-id="obsidianInstall" />
+<meta name="ext-resource-dependency" content="assets/obsidian-ai-tools.png" data-resource-id="obsidianAiTools" />
+<meta name="ext-resource-dependency" content="assets/obsidian-claude-code.png" data-resource-id="obsidianClaudeCode" />
+<meta name="ext-resource-dependency" content="assets/obsidian-vscode.png" data-resource-id="obsidianVscode" />
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#f5f1e8">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#f5f1e8"/>
+    <!-- Code brackets glyph -->
+    <g transform="translate(600 400)" stroke="#b8794a" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <polyline points="-180,-110 -300,0 -180,110" />
+      <polyline points="180,-110 300,0 180,110" />
+      <line x1="-60" y1="140" x2="60" y2="-140" stroke="#7a6b52" />
+    </g>
+    <text x="600" y="640" text-anchor="middle"
+          font-family="'Noto Serif TC', 'Cormorant Garamond', Georgia, serif"
+          font-size="56" font-weight="600" fill="#2a2620">
+      程式網頁架構
+    </text>
+    <text x="600" y="700" text-anchor="middle"
+          font-family="'JetBrains Mono', monospace"
+          font-size="22" fill="#8a8170" letter-spacing="2">
+      web.architecture
+    </text>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="pages-home.jsx"></script>
+<script type="text/babel" src="pages-setup.jsx"></script>
+<script type="text/babel" src="pages-obsidian.jsx"></script>
+<script type="text/babel" src="pages-deploy.jsx"></script>
+<script type="text/babel" src="pages-frontend.jsx"></script>
+<script type="text/babel" src="pages-html.jsx"></script>
+<script type="text/babel" src="pages-css.jsx"></script>
+<script type="text/babel" src="pages-backend.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
