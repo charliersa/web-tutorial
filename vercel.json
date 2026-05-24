@@ -1,7 +1,5 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "installCommand": "npm install",
-  "framework": "vite",
-  "rootDirectory": "web-architecture-react"
+  "installCommand": "cd web-architecture-react && npm install",
+  "buildCommand": "cd web-architecture-react && npm run build",
+  "outputDirectory": "web-architecture-react/dist"
 }
